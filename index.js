@@ -1,18 +1,8 @@
-/* eslint-disable  func-names */
-/* eslint quote-props: ["error", "consistent"]*/
-/**
- * This sample demonstrates a simple skill built with the Amazon Alexa Skills
- * nodejs skill development kit.
- * This sample supports multiple lauguages. (en-US, en-GB, de-DE).
- * The Intent Schema, Custom Slots and Sample Utterances for this skill, as well
- * as testing instructions are located at https://github.com/alexa/skill-sample-nodejs-fact
- **/
-
 'use strict';
 
 const Alexa = require('alexa-sdk');
 
-const APP_ID = undefined;  // TODO replace with your app ID (OPTIONAL).
+const APP_ID = undefined;  //put actual app id here
 
 const handlers = {
     'LaunchRequest': function () {
@@ -36,11 +26,12 @@ const handlers = {
         this.emit(':tell', 'Goodbye!');
     },
     'Unhandled': function() {
+        //copy of QuestionIntent as a fall-through case but this shouldn't ever really happen
         //generate random number 0 through 7
         var index = Math.floor(Math.random() * 8);
         var songs = ['<audio src="https://s3.amazonaws.com/magic-eight-ball-songs/dont-hold-your-breath.mp3" />', '<audio src="https://s3.amazonaws.com/magic-eight-ball-songs/no-no-no.mp3" />', '<audio src="https://s3.amazonaws.com/magic-eight-ball-songs/yes-yes-yes.mp3" />', '<audio src="https://s3.amazonaws.com/magic-eight-ball-songs/maybe.mp3" />', '<audio src="https://s3.amazonaws.com/magic-eight-ball-songs/yes-definitely.mp3" />', '<audio src="https://s3.amazonaws.com/magic-eight-ball-songs/yes-boy.mp3" />', '<audio src="https://s3.amazonaws.com/magic-eight-ball-songs/try-again.mp3" />', '<audio src="https://s3.amazonaws.com/magic-eight-ball-songs/hell-no.mp3" />'];
         var audio = songs[index];
-        console.log('QuestionIntent');
+        console.log('Unhandled');
         this.emit(':tell', audio);
     },
 };
@@ -48,7 +39,6 @@ const handlers = {
 exports.handler = function (event, context) {
     const alexa = Alexa.handler(event, context);
     alexa.APP_ID = APP_ID;
-    // To enable string internationalization (i18n) features, set a resources object.
     alexa.registerHandlers(handlers);
     alexa.execute();
 };
